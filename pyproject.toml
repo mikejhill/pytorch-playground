@@ -2,6 +2,13 @@
 requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "pytorch-playground"
+version = "0.1.0"
+description = "Learning playground for PyTorch"
+requires-python = ">=3.8"
+dependencies = ["torch", "torchvision"]
+
 [tool.black]
 line-length = 88
 target-version = ['py39']
