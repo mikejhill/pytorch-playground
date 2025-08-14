@@ -11,6 +11,22 @@ A great beginner project is to train a neural network that can recognize handwri
 - Each image is only 28×28 pixels in grayscale, making training relatively quick.
 - Tutorials and code examples are widely available if you get stuck.
 
+## Project Layout
+
+```
+.
+├── data/                  # datasets are downloaded here
+├── src/
+│   └── pytorch_playground/
+│       ├── data.py        # helpers for loading datasets
+│       ├── model.py       # the SimpleNet definition
+│       └── train.py       # training loop for MNIST
+├── tests/                 # basic unit tests
+├── requirements.txt       # runtime dependencies
+├── requirements-dev.txt   # tooling for development
+└── README.md
+```
+
 ## Getting Started
 
 1. **Install Python 3.8 or newer.** Creating a virtual environment is recommended:
@@ -20,47 +36,26 @@ A great beginner project is to train a neural network that can recognize handwri
    source .venv/bin/activate  # On Windows use `.venv\Scripts\activate`
    ```
 
-2. **Install PyTorch and supporting libraries.** Visit <https://pytorch.org> for the command specific to your system. A typical CPU-only install looks like:
+2. **Install dependencies.**
 
    ```bash
-   pip install torch torchvision
+   pip install -r requirements.txt         # runtime packages
+   pip install -r requirements-dev.txt     # tools like black, ruff, pytest
    ```
 
-3. **Clone this repository** (if you haven't already) and add your own training script. You can start from the following minimal example that trains a simple network:
+3. **Run the example training script.** This downloads MNIST to the `data/` directory and trains a small neural network:
 
-   ```python
-   import torch
-   from torch import nn
-   from torchvision import datasets, transforms
-
-   train_data = datasets.MNIST(
-       root="./data", train=True, download=True,
-       transform=transforms.ToTensor()
-   )
-   train_loader = torch.utils.data.DataLoader(train_data, batch_size=64, shuffle=True)
-
-   model = nn.Sequential(
-       nn.Flatten(),
-       nn.Linear(28 * 28, 128),
-       nn.ReLU(),
-       nn.Linear(128, 10)
-   )
-   loss_fn = nn.CrossEntropyLoss()
-   optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
-
-   for epoch in range(5):
-       for images, labels in train_loader:
-           preds = model(images)
-           loss = loss_fn(preds, labels)
-
-           optimizer.zero_grad()
-           loss.backward()
-           optimizer.step()
-
-       print(f"Epoch {epoch+1}, loss={loss.item():.4f}")
+   ```bash
+   python -m pytorch_playground.train
    ```
 
-4. **Run your script** to start training and watch the loss decrease as the model learns. From there you can experiment with different network architectures, optimizers, or datasets such as Fashion-MNIST or CIFAR-10.
+4. **Run tests** to make sure everything is working:
+
+   ```bash
+   pytest
+   ```
+
+From here you can experiment with different network architectures, optimizers, or datasets such as Fashion-MNIST or CIFAR-10.
 
 ## Next Steps
 
@@ -69,4 +64,3 @@ A great beginner project is to train a neural network that can recognize handwri
 - Save the trained model and load it later for predictions.
 
 This repository is intentionally kept simple. Feel free to modify the example, add notebooks, or expand it into more complex projects as you learn.
-
