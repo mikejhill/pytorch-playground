@@ -14,10 +14,10 @@ def get_dataloaders(
     """Return training and test dataloaders.
 
     Args:
-    ----
         batch_size: Number of items per batch.
         use_fake_data: If True, return loaders built from ``datasets.FakeData`` to
             avoid downloading the real dataset. Helpful for tests.
+
     """
     transform = transforms.ToTensor()
     if use_fake_data:

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import torch
+
 from pytorch_playground.data import get_dataloaders
 from pytorch_playground.model import SimpleNet
 
